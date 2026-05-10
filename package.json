@@ -1,0 +1,26 @@
+{
+  "name": "@adex/skills",
+  "version": "0.1.0",
+  "description": "AdeX - Agent Driven Engineering Execution. Skill-based framework for building software products with AI agents.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo 'Run integration tests manually. See tests/integration-test.md'"
+  },
+  "keywords": [
+    "agent-skills",
+    "opencode",
+    "ai",
+    "framework",
+    "adeX"
+  ],
+  "author": "Adexengineer",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Adexengineer/Adex"
+  },
+  "bugs": {
+    "url": "https://github.com/Adexengineer/Adex/issues"
+  },
+  "homepage": "https://github.com/Adexengineer/Adex#readme"
+}
