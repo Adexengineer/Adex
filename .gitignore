@@ -3,6 +3,9 @@
 # Master spec is local reference only
 master_spec.md
 
+# Tests (internal testing procedures, not part of published framework)
+tests/
+
 # Node
 node_modules/
 package-lock.json
