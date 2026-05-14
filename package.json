@@ -1,17 +1,21 @@
 {
   "name": "@adex/skills",
-  "version": "0.1.0",
-  "description": "AdeX - Agent Driven Engineering Execution. Skill-based framework for building software products with AI agents.",
+  "version": "0.2.0",
+  "description": "AdeX - Agent Driven Engineering Execution. SDD + TDD skill-based framework for building software products with AI agents.",
   "main": "index.js",
   "scripts": {
-    "test": "echo 'Run integration tests manually. See tests/integration-test.md'"
+    "test": "echo 'Run integration tests manually. See CONTRIBUTING.md'"
   },
   "keywords": [
     "agent-skills",
     "opencode",
     "ai",
     "framework",
-    "adeX"
+    "adeX",
+    "sdd",
+    "tdd",
+    "spec-driven",
+    "test-driven"
   ],
   "author": "Adexengineer",
   "license": "MIT",

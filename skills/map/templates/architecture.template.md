@@ -28,12 +28,14 @@
 ### {service-name}
 {Responsibility, boundaries, and what it owns.}
 
-## Data Models
+## Data Models (Master)
+{Primary entities, their fields, their relationships. These are the shared contracts that every feature spec references.}
 
 ### {entity-name}
 - `{field}`: {type} — {description}
 
-## API Design
+## API Design (System Boundary)
+{Major endpoints or interfaces at the system boundary. Feature specs define detailed per-endpoint behavior.}
 
 ### {endpoint or interface name}
 - Method: {GET / POST / etc.}
