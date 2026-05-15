@@ -1,7 +1,7 @@
 ---
 name: explore
-version: 0.1.0
-description: Discover the product idea through deep conversation and seed TheAnchor
+version: 0.2.0
+description: Discover the product idea through co-creation conversation and seed TheAnchor
 invocation: /explore
 author: Adexengineer
 ---
@@ -10,7 +10,9 @@ author: Adexengineer
 
 ## Purpose
 
-`explore` is the entry point to AdeX. It captures the raw product vision through a deep, bounded conversation and stores it in `TheAnchor/idea.md`. It also initializes `TheAnchor/` with the core files any future agent needs: `AGENTS.md`, `index.md`, and `mistakes.md`.
+`explore` is the entry point to AdeX. It captures the raw product vision through **co-creation** — not interrogation — and stores it in `TheAnchor/idea.md`. It also initializes `TheAnchor/` with the core files any future agent needs: `AGENTS.md`, `index.md`, and `mistakes.md`.
+
+**The design philosophy:** The agent thinks first, then probes. The user validates, rejects, or refines — never starts from a blank page.
 
 This is a multi-session friendly skill. The conversation can pause and resume anytime. The Anchor holds all context.
 
@@ -31,52 +33,120 @@ This is a multi-session friendly skill. The conversation can pause and resume an
    - Read `idea.md` completely.
    - Present a one-paragraph summary to the user.
    - Ask: "An idea.md already exists for this project. Would you like to refine the existing idea, or start fresh?"
-   - If refine: use the existing content as the baseline and ask the 7 questions as deltas ("Has anything changed about...").
-   - If start fresh: delete the old `idea.md` and proceed with the full questioning flow below.
+   - If refine: use the existing content as the baseline and treat the conversation as deltas.
+   - If start fresh: delete the old `idea.md` and proceed with the conversation flow below.
 5. If `TheAnchor/` exists but `TheAnchor/idea.md` does **not** exist:
    - Proceed directly to the conversation flow below.
 
-## Conversation flow
+## Conversation flow: Synthesize — Probe — Confirm
 
-`explore` asks a **maximum of 7 questions**. It does **not** ask all 7 as a list. It asks them **one at a time**, conversationally, letting the user's answer inform the next question.
+`explore` uses a **Synthesize-Probe-Confirm (SPC)** flow. It does not ask a list of questions. It has one open-ended opening, then it does the work of pattern-matching and framing.
 
-### The 7 questions
+### Step 1: Spark (ONE open question)
 
-1. **What problem are you solving, and who has this problem?**
-2. **Who is the target user — what is their context, what do they struggle with, and what do they want?**
-3. **What are the must-have features?** (Capture WHAT the product does, not HOW it is built.)
-4. **What platform does this live on — web, mobile, CLI, API, desktop, or a combination?**
-5. **What does success look like — how do you know the product is working?**
-6. **What are the constraints — timeline, budget, tech preferences, non-negotiables?**
-7. **What is explicitly out of scope for this product?**
+**Say exactly this:**
 
-### Conversation rules
+> "What sparked this idea? Tell me whatever comes to mind — even if it's messy."
 
-- **Never ask more than one question at a time.**
-- If the user gives a detailed answer that covers multiple questions, do **not** ask the covered questions again. Move to the next uncovered question.
-- Do **not** suggest architecture, tech stack, or implementation during `explore` — that is `map`'s job.
-- Ask follow-up clarifications if an answer is vague or incomplete, but do not exceed 7 core questions.
-- If the user says "let's pause" or "save this for later", summarize what was captured so far, write a draft `idea.md` with a `draft` flag, and end the session cleanly.
+No follow-up. No prompting. Just listen.
 
-### Confirmation gate
+### Step 2: Synthesize (Agent extracts and frames)
 
-After the 7 questions (or when the agent judges it has enough clarity), produce a concise summary (3–6 bullet points) covering:
+After the user's response, the agent does three things silently:
+
+1. **Extract signals** — What problem was mentioned? Who struggles with it? What was mentioned repeatedly?
+2. **Infer gaps** — What was NOT said? (Target user? Platform? Constraints?)
+3. **Build a frame** — A one-sentence synthesis of what the agent thinks the idea is.
+
+**Present the frame to the user:**
+
+> "I heard [signals]. It sounds like you're trying to [one-sentence frame]. Does that feel right, or am I off?"
+
+**Rules for framing:**
+- Use the user's own words wherever possible.
+- If uncertain, offer TWO frames: "It sounds like either [Frame A] or [Frame B]. Which feels closer?"
+- Never ask the user to "explain more" without offering a frame first.
+
+### Step 3: Probe (Agent guides, user picks or clarifies)
+
+Once the core frame is validated, the agent identifies the remaining unknowns. For each gap, it probes using ONE of these patterns:
+
+#### Pattern A: Inferred Probe (when agent can guess)
+> "Based on what you described, I imagine this as a [web app / mobile app / CLI tool]. Is that right, or did you picture something else?"
+
+#### Pattern B: Options Probe (when there are clear categories)
+> "Most projects like this serve either [Option A], [Option B], or [Option C]. Does any of those feel like your user? Or is it someone else entirely?"
+
+**Always provide 2–4 options. Never provide 5+ (decision overload).**
+
+#### Pattern C: Specific Probe (when genuinely unclear)
+> "I don't have enough context to suggest this part. Can you tell me more about [specific thing]?"
+
+**Only use Pattern C when A and B are impossible.**
+
+#### Pattern D: Deferral (when user is stuck)
+If the user says any of these:
+- "I don't know"
+- "Not sure"
+- "You decide"
+- "Whatever"
+- "I'll figure it out later"
+
+The agent does **not** decide for them. It says:
+
+> "No problem. I'll mark [topic] as 'deferred' and propose options when we get to the `shape` skill. Let's move on to [next topic]."
+
+**Deferral rules:**
+- Never pressure the user to answer.
+- Never make the decision for the user.
+- Note the deferred topic and carry it forward.
+
+### Step 4: Confirm (Validate the full picture)
+
+After all topics are covered (or deferred), the agent produces a concise summary (3–6 bullet points) covering:
 - The problem being solved
 - The target user
 - Core features
 - Platform
 - Success criteria
+- Any deferred topics
 
-Then ask: **"Does this capture your idea accurately?"**
+**Then ask:**
+
+> "Does this capture your idea accurately?"
 
 - If the user says **yes** or makes only minor corrections: apply corrections and proceed to "On confirmation."
-- If the user says **no** or requests significant changes: repeat the relevant questions until clarity is reached, then ask the confirmation question again.
+- If the user says **no** or requests significant changes: revisit the relevant topics until clarity is reached, then ask the confirmation question again.
+
+### What topics get covered
+
+The conversation covers these dimensions, but NOT as a checklist. The agent covers them organically as gaps are identified:
+
+1. **Problem** — What pain exists? Who feels it?
+2. **Target user** — Who is this for? What is their context?
+3. **Core features** — What must the product do? (WHAT, not HOW)
+4. **Platform** — Web, mobile, CLI, API, desktop, or combination?
+5. **Success criteria** — How do you know it's working?
+6. **Constraints** — Timeline, budget, non-negotiables?
+7. **Non-goals** — What is explicitly out of scope?
+
+**The agent skips topics that are already clear from the user's answers.**
+
+### Conversation rules
+
+- **Never ask more than one question at a time.**
+- **Never present more than 4 options at a time.**
+- **Synthesize before you probe.** Always offer a frame or guess before asking for raw information.
+- **Use the user's own words in frames.** This builds trust and confirms understanding.
+- **Do not suggest architecture, tech stack, or implementation during `explore`.** That is `map`'s job.
+- **If the user says "let's pause" or "save this for later"**, summarize what was captured so far, write a draft `idea.md` with a `draft` flag, and end the session cleanly.
+- **The agent is a co-founder, not an interviewer.** Speak in plain language. Use analogies when helpful. Be warm, not robotic.
 
 ## On confirmation
 
 1. Write `TheAnchor/idea.md` using the template from `./templates/idea.template.md`, populated with all captured information.
 2. Write `TheAnchor/index.md` using the template from `./templates/index.template.md`, seeded with the project name, summary, and initial state.
-3. Update `TheAnchor/AGENTS.md` by replacing `{project-name}` and `{One-line description}` placeholders with the actual project name and description. Leave all other placeholders (tech stack, commands) as-is for the `map` skill to fill.
+3. Update `TheAnchor/AGENTS.md` by replacing `{project-name}` and `{One-line description}` placeholders with the actual project name and description. Set `collaboration_mode: guided` by default. Leave all other placeholders (tech stack, commands) as-is for the `map` skill to fill.
 4. End the session cleanly. Say: "The explore skill is complete. idea.md, index.md, and AGENTS.md have been created in TheAnchor/. Next step: run the `shape` skill to structure the product."
 5. Do **not** continue the conversation. Do **not** suggest next steps beyond naming the next skill.
 
@@ -94,6 +164,12 @@ The AGENTS.md and mistakes.md skeletons below are minimal inline templates embed
 ```markdown
 # {project-name}
 {One-line description of the project.}
+
+## Collaboration Mode
+collaboration_mode: guided  # Options: guided | expert
+# guided    = Synthesize-Probe-Confirm (default, recommended for most users)
+#             Agent proposes frames, user validates/edits
+# expert    = Direct questioning (for experienced PMs who know exactly what they want)
 
 ## Tech Stack
 - Language: {e.g., TypeScript, Python, Go}
@@ -151,11 +227,13 @@ Format per entry:
 
 ## Rules
 
-- **Never ask more than one question at a time.**
+- **Synthesize before probing.** The agent extracts signals, builds a frame, and presents it to the user — never asks a blank question.
+- **Never present more than 4 options at a time.** Decision overload occurs at 5+.
+- **Never make decisions for the user when they say "I don't know."** Defer and propose later.
 - **Never suggest architecture, tech stack, or implementation.** `explore` captures the *what* and *why*. The *how* belongs to `map`.
 - **Never continue the session after `idea.md` is written.** The session ends cleanly after confirmation and file writes.
 - **Never write files before user confirmation.** Always present the summary and get explicit approval.
 - **Always update `AGENTS.md` and `index.md`** when writing `idea.md`, even if they already exist.
-- **If refining an existing idea**, read the existing `idea.md` first and treat the conversation as a delta, not a blank slate.
-- **If code exists and `TheAnchor/` does not**, offer Reverse-Engineering Mode before asking the 7 questions.
+- **If refining an existing idea**, read the existing `idea.md` first and treat the conversation as deltas, not a blank slate.
+- **If code exists and `TheAnchor/` does not**, offer Reverse-Engineering Mode before asking the spark question.
 - **Multi-session safe:** If the user pauses, write a draft `idea.md` with a `draft` flag and end cleanly.

@@ -21,5 +21,8 @@
 ## Non-Goals
 {What this product explicitly does not do.}
 
+## Deferred Topics
+{Topics the user was unsure about during explore. These will be proposed during shape.}
+
 ## Inspiration
 {Products or patterns that inform the direction. Optional.}
