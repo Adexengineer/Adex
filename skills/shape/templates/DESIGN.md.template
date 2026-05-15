@@ -1,0 +1,211 @@
+---
+version: alpha
+name: {project-name} Design System
+description: {One-line description of the visual identity.}
+colors:
+  primary: "{hex}"
+  on-primary: "{hex}"
+  secondary: "{hex}"
+  on-secondary: "{hex}"
+  tertiary: "{hex}"
+  on-tertiary: "{hex}"
+  surface: "{hex}"
+  on-surface: "{hex}"
+  surface-variant: "{hex}"
+  on-surface-variant: "{hex}"
+  error: "{hex}"
+  on-error: "{hex}"
+  background: "{hex}"
+  outline: "{hex}"
+typography:
+  display:
+    fontFamily: "{font-family}"
+    fontSize: "{size}"
+    fontWeight: {number}
+    lineHeight: "{ratio}"
+    letterSpacing: "{value}"
+  headline:
+    fontFamily: "{font-family}"
+    fontSize: "{size}"
+    fontWeight: {number}
+    lineHeight: "{ratio}"
+  title:
+    fontFamily: "{font-family}"
+    fontSize: "{size}"
+    fontWeight: {number}
+    lineHeight: "{ratio}"
+  body:
+    fontFamily: "{font-family}"
+    fontSize: "{size}"
+    fontWeight: {number}
+    lineHeight: "{ratio}"
+  label:
+    fontFamily: "{font-family}"
+    fontSize: "{size}"
+    fontWeight: {number}
+    lineHeight: "{ratio}"
+    letterSpacing: "{value}"
+rounded:
+  none: "0px"
+  sm: "{value}"
+  md: "{value}"
+  lg: "{value}"
+  xl: "{value}"
+  full: "9999px"
+spacing:
+  xs: "{value}"
+  sm: "{value}"
+  md: "{value}"
+  lg: "{value}"
+  xl: "{value}"
+components:
+  button-primary:
+    backgroundColor: "{colors.primary}"
+    textColor: "{colors.on-primary}"
+    typography: "{typography.label}"
+    rounded: "{rounded.md}"
+    padding: "{spacing.md}"
+  button-primary-hover:
+    backgroundColor: "{colors.secondary}"
+  button-secondary:
+    backgroundColor: "{colors.secondary}"
+    textColor: "{colors.on-secondary}"
+    typography: "{typography.label}"
+    rounded: "{rounded.md}"
+    padding: "{spacing.md}"
+  button-secondary-hover:
+    backgroundColor: "{colors.tertiary}"
+  card-standard:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.on-surface}"
+    rounded: "{rounded.lg}"
+    padding: "{spacing.lg}"
+  input-field:
+    backgroundColor: "{colors.surface-variant}"
+    textColor: "{colors.on-surface}"
+    typography: "{typography.body}"
+    rounded: "{rounded.sm}"
+    padding: "{spacing.md}"
+---
+
+## Overview
+
+{Describe the visual identity: mood, density, personality. What feeling should the UI evoke?}
+
+{Example: "This design system centers on a high-fidelity minimalist aesthetic designed to evoke clarity and focus. The brand personality is professional yet approachable, utilizing clean layouts and significant whitespace to reduce cognitive load."}
+
+## Colors
+
+{Describe the color philosophy. Why these colors? What emotional response do they create?}
+
+### Primary Palette
+- **Primary**: `{colors.primary}` — {Usage: main actions, primary buttons, key highlights}
+- **On Primary**: `{colors.on-primary}` — {Text/icons on primary backgrounds}
+- **Secondary**: `{colors.secondary}` — {Secondary actions, tags, badges}
+- **On Secondary**: `{colors.on-secondary}` — {Text/icons on secondary backgrounds}
+- **Tertiary**: `{colors.tertiary}` — {Accent details, supplementary information}
+- **On Tertiary**: `{colors.on-tertiary}` — {Text/icons on tertiary backgrounds}
+
+### Surface Palette
+- **Surface**: `{colors.surface}` — {Card backgrounds, elevated surfaces}
+- **On Surface**: `{colors.on-surface}` — {Primary text on surfaces}
+- **Surface Variant**: `{colors.surface-variant}` — {Subtle backgrounds, input fields}
+- **On Surface Variant**: `{colors.on-surface-variant}` — {Secondary text, captions}
+- **Background**: `{colors.background}` — {App/page background}
+- **Outline**: `{colors.outline}` — {Borders, dividers}
+
+### Semantic Colors
+- **Error**: `{colors.error}` — {Error states, validation failures}
+- **On Error**: `{colors.on-error}` — {Text on error backgrounds}
+
+## Typography
+
+{Describe the typography philosophy. Why this font? What does each scale level communicate?}
+
+### Scale
+- **Display**: {Used for hero text, large numbers, splash screens}
+- **Headline**: {Page titles, section headers}
+- **Title**: {Card titles, list headers, dialog titles}
+- **Body**: {Paragraphs, descriptions, form labels}
+- **Label**: {Buttons, badges, small annotations, tags}
+
+### Application Rules
+- {Rule 1: e.g., "Display text should never be used on dark backgrounds without a text shadow"}
+- {Rule 2: e.g., "Body text should always maintain a minimum contrast ratio of 4.5:1"}
+- {Rule 3: e.g., "Labels use positive letter-spacing for readability at small sizes"}
+
+## Layout
+
+{Describe the layout strategy. Grid-based? Fluid? Mobile-first?}
+
+### Spacing Scale
+- **xs** (`{spacing.xs}`): {Tight gaps, icon padding, compact inline spacing}
+- **sm** (`{spacing.sm}`): {Button padding, input internal padding, small gaps}
+- **md** (`{spacing.md}`): {Card padding, form field gaps, section separators}
+- **lg** (`{spacing.lg}`): {Section padding, container margins, large gaps}
+- **xl** (`{spacing.xl}`): {Page-level padding, major section breaks}
+
+### Grid & Containers
+- {Container max-width: e.g., "1200px centered"}
+- {Grid system: e.g., "12-column grid with 24px gutters"}
+- {Responsive breakpoints: e.g., "mobile < 768px, tablet 768–1024px, desktop > 1024px"}
+
+## Elevation & Depth
+
+{Describe how the UI creates depth. Shadows? Borders? Transparency?}
+
+### Shadow System
+- **Level 0**: {Flat, no shadow — used for base surfaces}
+- **Level 1**: {Subtle shadow — cards at rest, buttons}
+- **Level 2**: {Medium shadow — dropdowns, popovers}
+- **Level 3**: {Strong shadow — modals, dialogs}
+
+### Surface Hierarchy
+- {Rule: e.g., "Higher elevation = lighter surface in dark mode, darker in light mode"}
+- {Rule: e.g., "Never use more than 3 elevation levels on a single screen"}
+
+## Shapes
+
+{Describe the shape language. Sharp corners? Rounded? Organic?}
+
+### Border Radius Application
+- **none** (`{rounded.none}`): {Data tables, code blocks, strict UI}
+- **sm** (`{rounded.sm}`): {Inputs, small buttons, tags}
+- **md** (`{rounded.md}`): {Standard buttons, cards, list items}
+- **lg** (`{rounded.lg}`): {Feature cards, modals, large containers}
+- **xl** (`{rounded.xl}`): {Hero images, primary CTAs, pill-shaped elements}
+- **full** (`{rounded.full}`): {Avatars, badges, circular icons}
+
+## Components
+
+{Describe component styling philosophy. Consistent patterns? Variant rules?}
+
+### Buttons
+- **Primary**: Solid `{colors.primary}` background, `{colors.on-primary}` text, `{rounded.md}` corners. Used for the main action on any screen.
+- **Secondary**: `{colors.secondary}` background, `{colors.on-secondary}` text. Used for secondary actions.
+- **Ghost**: Transparent background with `{colors.primary}` text and border. Used for low-priority actions.
+- **Hover States**: All buttons shift to their container variant color on hover with a 150ms ease transition.
+
+### Cards
+- **Standard**: `{colors.surface}` background, `{rounded.lg}`, `{spacing.lg}` padding, subtle border or shadow.
+- **Elevated**: Same as standard but with Level 1 shadow. Used for featured content or modals.
+
+### Input Fields
+- **Text Input**: `{colors.surface-variant}` background, `{rounded.sm}`, `{colors.on-surface}` text. Border becomes `{colors.primary}` on focus.
+- **Focus State**: 1px `{colors.primary}` border, background shifts to `{colors.surface}`.
+
+### Navigation
+- {Header/nav styling rules}
+- {Active vs inactive states}
+
+## Do's and Don'ts
+
+### Do
+- {Rule 1: e.g., "Use primary color only for the main action per screen"}
+- {Rule 2: e.g., "Maintain consistent spacing using the spacing scale tokens"}
+- {Rule 3: e.g., "Use surface-variant for input backgrounds to distinguish interactive elements"}
+
+### Don't
+- {Rule 1: e.g., "Don't use primary color for error or warning states"}
+- {Rule 2: e.g., "Don't mix rounded styles arbitrarily — stick to the scale"}
+- {Rule 3: e.g., "Don't place text directly on background without a surface container"}

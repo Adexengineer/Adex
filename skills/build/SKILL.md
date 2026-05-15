@@ -23,6 +23,7 @@ author: Adexengineer
 5. Check for `TheAnchor/harness.md`. If missing, tell the user: **"No harness.md found in The Anchor. Please run the `map` skill first by typing `/map`."** Then end the session.
 6. Read `TheAnchor/mistakes.md` **completely** before proceeding.
 7. Read `TheAnchor/index.md` to identify which feature is being built (look for the feature with status `"specced"` or `"building"`).
+8. Check for `TheAnchor/DESIGN.md`. If it exists, read it completely. Any UI/styling work must follow the design tokens and rules defined there.
 8. Ask the user to confirm the feature: **"Starting build for {feature-name}. Confirm?"**
 9. Check for `TheAnchor/specs/plans/{id}-{feature-name}/spec.md`. If missing, tell the user: **"No spec.md found for {feature-name}. Please run the `spec` skill first by typing `/spec`."** Then end the session.
 10. Check for `TheAnchor/specs/plans/{id}-{feature-name}/test-spec.md`. If missing, tell the user: **"No test-spec.md found for {feature-name}. Please run the `spec` skill first by typing `/spec`."** Then end the session.
@@ -70,6 +71,7 @@ Before writing `completed.md`, the `build` skill runs through this checklist. An
 5. **Integration check**: Does the feature connect to existing code the way `architecture.md` and `spec.md` specify?
 6. **Problem check**: Does the implemented feature actually solve what `spec.md` asked for?
 7. **CLI verification check**: Did the agent run the CLI verification tools from `harness.md` and confirm real-world state matches expectations?
+8. **Design System check** (if `DESIGN.md` exists): Does any UI/styling follow the design tokens (colors, typography, spacing, components) defined in `DESIGN.md`? Are exact hex values, font sizes, and spacing tokens used instead of arbitrary values?
 
 ## On completion
 
@@ -113,4 +115,5 @@ This skill reads its structural templates from `./templates/`:
 - **Always perform Mutation Testing** on critical test cases to prove the test contract is real.
 - **Always run CLI Verification Tools** from `harness.md` to confirm real-world state.
 - **Always perform Spec Compliance Checks** — verify that code does exactly what `spec.md` says, not just that tests pass.
+- **If `DESIGN.md` exists, always read it before styling UI components.** Use design tokens (colors, typography, spacing, rounded) instead of arbitrary values.
 - **The Anchor is the single source of truth.** If code and spec conflict, the spec wins. Change the spec first, then change the code.

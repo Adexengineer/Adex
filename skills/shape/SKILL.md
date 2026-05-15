@@ -90,8 +90,56 @@ After edits settle, the agent presents a **final concise summary** (5–8 bullet
 
 **Then ask:** **"Does this product spec capture everything accurately?"**
 
-- If the user says **yes** or makes only minor corrections: apply corrections and proceed to "On confirmation."
+- If the user says **yes** or makes only minor corrections: apply corrections and proceed to the Design System step below.
 - If the user says **no** or requests significant changes: apply edits and re-present the summary, then ask the confirmation question again.
+
+### Step 4: Design System (Optional — for UI projects)
+
+After the product spec is locked, the agent checks: **does this product have a user interface?**
+
+- If the product is **CLI-only, API-only, or backend-only**: skip this step entirely. Say: *"This looks like a non-UI project, so I'm skipping the design system step. Moving to file write."*
+- If the product has **web, mobile, or desktop UI**: proceed with the Design System Propose-Edit-Confirm flow.
+
+#### Design System Propose-Edit-Confirm
+
+**Propose:** The agent reads the product spec and proposes a complete **DESIGN.md** draft. It does NOT ask "what colors do you want?" It proposes:
+
+1. **Visual vibe** — One-sentence description of the aesthetic (e.g., "modern minimalist with dark mode")
+2. **Color palette** — 6–12 colors with hex values and reasoning (e.g., "Primary: `#0A0A0A` — near-black for authority and focus")
+3. **Typography scale** — 3–6 font sizes with font family, weight, and line height
+4. **Spacing scale** — 4–6 spacing tokens (xs, sm, md, lg, xl)
+5. **Border radius scale** — 3–5 rounded tokens
+6. **Component styles** — Buttons, inputs, cards, navigation with exact token references
+7. **Elevation & shadows** — If relevant to the UI style
+8. **Do's and Don'ts** — 3–5 design rules (e.g., "Never use primary color for error states")
+
+**Present the draft:**
+
+> "Your product has a UI, so I drafted a design system. I assumed a [vibe] aesthetic. You can:
+> - Discuss specific values with me (colors, fonts, spacing)
+> - Say 'looks good' and I'll lock it in
+> - Say 'you decide everything' and I'll finalize it
+> - Say 'skip this' and I'll write a minimal placeholder"
+
+**Edit:** The user can engage at any level:
+- **Deep engagement:** "Change primary to blue #0066FF" / "Use Inter font" / "More rounded corners"
+- **Light engagement:** "Looks good" / "Make it darker" / "More modern"
+- **No engagement:** "You decide" / "Skip this" / "I don't care"
+
+**Agent fills gaps:** If the user specifies some values but not others, the agent keeps the user's values and fills the rest with its own proposals. It NEVER leaves blanks.
+
+**Confirm:** After discussion (or immediately if user says "you decide"), the agent presents a concise summary:
+- Visual vibe
+- Color count + primary color
+- Typography family + scale
+- Component count
+- Any user-specified overrides
+
+**Then ask:** **"Does this design system look right?"**
+- If yes: proceed to "On confirmation."
+- If no: apply edits and re-present.
+
+**Skip protocol:** If the user says "skip this" at any point, write a minimal DESIGN.md with basic tokens and move on. Do not stall.
 
 ### Handling deferred topics from `explore`
 
@@ -113,18 +161,21 @@ If `idea.md` contains deferred topics, `shape` MUST address them in the proposal
 ## On confirmation
 
 1. Write `TheAnchor/product.md` using the template from `./templates/product.template.md`. Populate it with all information from `idea.md` plus all edits from the conversation.
-2. Update `TheAnchor/index.md`:
+2. If a DESIGN.md was created during the Design System step, write `TheAnchor/DESIGN.md` using the template from `./templates/DESIGN.md.template`.
+3. Update `TheAnchor/index.md`:
    - Fill in the **Summary** with 2–3 sentences describing the product and its current state.
    - Update the **Files** section to reflect that `product.md` now exists.
+   - If DESIGN.md was created, add it to the **Files** section.
    - Update the **Status** to show `explore: complete, shape: complete, next: map`.
-3. End the session cleanly. Say: **"The shape skill is complete. product.md has been created in TheAnchor/. Next step: run the `map` skill to design the system architecture."**
-4. Do **not** continue the conversation. Do **not** suggest next steps beyond naming the next skill.
+4. End the session cleanly. Say: **"The shape skill is complete. product.md has been created in TheAnchor/. Next step: run the `map` skill to design the system architecture."**
+5. Do **not** continue the conversation. Do **not** suggest next steps beyond naming the next skill.
 
 ## File templates
 
-This skill reads its structural template from `./templates/`:
+This skill reads its structural templates from `./templates/`:
 
 - `./templates/product.template.md` — template for `TheAnchor/product.md`
+- `./templates/DESIGN.md.template` — template for `TheAnchor/DESIGN.md` (follows Google Stitch DESIGN.md spec)
 
 ## Rules
 

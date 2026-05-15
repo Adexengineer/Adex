@@ -25,6 +25,7 @@ It also updates `TheAnchor/index.md` and `TheAnchor/AGENTS.md` with the confirme
 2. Check for `TheAnchor/idea.md`. If missing, tell the user: **"No idea.md found in The Anchor. Please run the `explore` skill first by typing `/explore`."** Then end the session.
 3. Check for `TheAnchor/product.md`. If missing, tell the user: **"No product.md found in The Anchor. Please run the `shape` skill first by typing `/shape`."** Then end the session.
 4. Read `TheAnchor/idea.md` and `TheAnchor/product.md` **completely** before saying anything to the user.
+5. Check for `TheAnchor/DESIGN.md`. If it exists, read it completely — it informs the frontend tech stack and component library choices.
 5. Read `TheAnchor/index.md` to check if `architecture.md` already exists.
    - If `architecture.md` exists: present a brief summary of the existing architecture and ask: **"An architecture.md already exists in The Anchor. Would you like to refine the existing architecture, or rebuild from scratch?"**
      - If refine: read the existing `architecture.md` and treat the conversation as deltas.
@@ -37,7 +38,7 @@ It also updates `TheAnchor/index.md` and `TheAnchor/AGENTS.md` with the confirme
 
 `map` must cover these topics, in roughly this order:
 
-1. **Tech stack recommendation**: language, framework, runtime, database, hosting — with reasoning for every choice.
+1. **Tech stack recommendation**: language, framework, runtime, database, hosting — with reasoning for every choice. If `DESIGN.md` exists, the frontend stack must support the design system (e.g., Tailwind CSS if DESIGN.md uses standard tokens).
 2. **Architecture pattern**: monolith vs modular monolith vs microservices — with recommendation and trade-offs explained.
 3. **Services breakdown**: what are the major services or modules, and what does each own.
 4. **Data models** (master level): primary entities, their fields, their relationships. These will be refined per-feature in `spec`, but `map` defines the shared schema contracts.
@@ -84,9 +85,10 @@ Then ask: **"Does this architecture sound right?"**
    - Add key decisions to the **Key Decisions** list.
    - Update the **Status** to show `explore: complete, shape: complete, map: complete, next: spec`.
 7. Update `TheAnchor/AGENTS.md`:
-   - Replace the tech stack placeholders with the confirmed choices.
-   - Replace the test/build/lint/type-check command placeholders with the actual commands (or leave as placeholders if the user hasn't provided exact commands yet).
-   - Add any no-touch zones identified during the architecture session.
+    - Replace the tech stack placeholders with the confirmed choices.
+    - Replace the test/build/lint/type-check command placeholders with the actual commands (or leave as placeholders if the user hasn't provided exact commands yet).
+    - Add any no-touch zones identified during the architecture session.
+    - If `DESIGN.md` exists and the frontend stack supports it (e.g., Tailwind), add a note: "Design System: `TheAnchor/DESIGN.md` — read before styling UI components."
 8. **Migration handling:** If `architecture.md` already existed and was updated (not created fresh), compute the blast radius of changes. Identify which features in `roadmap.md` are affected by schema changes, service renames, API updates, or data model shifts. For each affected feature:
    - Mark its status back to `planned` or `stale`.
    - Add a note in `index.md` under **Impact Warnings**.

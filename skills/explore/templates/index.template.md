@@ -28,6 +28,7 @@
 ## Files
 - `TheAnchor/idea.md`: {one-liner summary}
 - `TheAnchor/product.md`: {one-liner summary}
+- `TheAnchor/DESIGN.md`: {one-liner summary or "not created"}
 - `TheAnchor/architecture.md`: {one-liner summary}
 - `TheAnchor/roadmap.md`: {current active feature}
 - `TheAnchor/conventions.md`: {one-liner summary}

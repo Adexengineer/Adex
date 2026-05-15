@@ -187,6 +187,7 @@ collaboration_mode: guided  # Options: guided | expert
 ## Key Files
 - Architecture: `TheAnchor/architecture.md`
 - Product Spec: `TheAnchor/product.md`
+- Design System: `TheAnchor/DESIGN.md`
 - Roadmap: `TheAnchor/roadmap.md`
 - Conventions: `TheAnchor/conventions.md`
 - Mistakes Log: `TheAnchor/mistakes.md`
